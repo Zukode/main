@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zukode</title>
+    <style type="text/css">
+        #current{
+            outline: none;
+        }
+        #write{
+            font-family: 'RobotoDraft', 'Roboto', sans-serif;
+            font-size: 16px;
+            letter-spacing: 1px;
+            color: #555;
+            -webkit-font-smoothing: antialiased;
+        }
+        #title{
+            outline: none;
+            margin-left: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="write" style="border: 1px solid; width: 60vw; min-height: 40vw; padding: 10px;">
+        <div class="wrapper">
+            <div class="title"><span>#</span><span id='title' contentEditable='true'></span></div>
+            <div class="content">
+                <div id="current" contentEditable='true'></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+    var rt = document.getElementById('write');
+    rt.addEventListener("keyup", test);
+    function test(e) {
+        if (e.shiftKey == true && e.key == 'Enter'){
+            var x = document.getElementById("current");
+            var y = x.innerHTML;
+            y = y.replace(/<br\s*\/?>\s*<\/div>\s*$/g,'</div>');
+            y = y.replace(/<br\s*\/?>\s*$/g,'');          
+            x.outerHTML = y + "<div id='current' contentEditable='true'></div>";
+            document.getElementById("current").focus();
+            
+        };
+
+        if (e.key == 'Enter') {
+            var x = document.activeElement.id;
+            if (x == 'title') {
+                var y = document.getElementById("title");
+                var z = y.innerText;
+                y.outerHTML = '<span>' + z + '</span>';
+            };
+        };
+
+        if(e.key == 'Backspace'){
+            var x = document.getElementById("current");
+            var y = x.innerText;
+            if (y == '') {
+                alert('empty');
+            };
+        };
+    }
+    </script>
+</body>
+</html>
